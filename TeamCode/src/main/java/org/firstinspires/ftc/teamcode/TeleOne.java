@@ -50,8 +50,8 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
-@Disabled
+@TeleOp(name="WEEEEEEEEEEEEE o", group="Iterative Opmode")
+
 public class TeleOne extends OpMode
 {
     // Declare OpMode members.
@@ -93,8 +93,15 @@ public class TeleOne extends OpMode
      */
     @Override
     public void loop() {
-        leftDrive.setPower(gamepad1.left_stick_y);
-        rightDrive.setPower(gamepad1.right_stick_y);
+        double leftY = gamepad1.left_stick_y;
+        double rightY = gamepad1.right_stick_y;
+        double leftX = gamepad1.left_stick_x;
+        double rightX = gamepad1.right_stick_x;
+
+        leftDrive.setPower(leftY + rightX);
+        rightDrive.setPower(leftY - rightX);
+
+
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }

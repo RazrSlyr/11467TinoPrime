@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -56,7 +57,7 @@ public class GyroTest extends OpMode
 {
     // Declare OpMode members.
     GyroSensor gyroSensor;
-
+    ColorSensor colorSensor;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -72,6 +73,7 @@ public class GyroTest extends OpMode
         }
         telemetry.addData("Gyro:", "Is Not Calibrating");
         telemetry.update();
+
     }
 
     /*

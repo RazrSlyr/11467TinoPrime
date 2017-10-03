@@ -94,7 +94,7 @@ public class GyroTest extends OpMode
      */
     @Override
     public void loop() {
-        telemetry.addData("Angle:", gyroSensor.getHeading());
+        telemetry.addData("Angle:", gyroSensor.getRotationFraction() * 360.0);
         telemetry.update();
     }
 

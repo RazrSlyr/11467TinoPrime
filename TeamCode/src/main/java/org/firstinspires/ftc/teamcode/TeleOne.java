@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -64,6 +65,7 @@ public class TeleOne extends OpMode
      */
     @Override
     public void init() {
+        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         telemetry.addData("Status", "Initialized");
 
         leftDrive = hardwareMap.dcMotor.get("leftMotor");
@@ -93,13 +95,17 @@ public class TeleOne extends OpMode
      */
     @Override
     public void loop() {
-        double leftY = gamepad1.left_stick_y;
-        double rightY = gamepad1.right_stick_y;
+        double leftY = -gamepad1.left_stick_y;
+        double rightY = -gamepad1.right_stick_y;
         double leftX = gamepad1.left_stick_x;
         double rightX = gamepad1.right_stick_x;
 
         leftDrive.setPower(leftY + rightX);
         rightDrive.setPower(leftY - rightX);
+        telemetry.addData("r x", rightX);
+        telemetry.addData("l y", leftY);
+        telemetry.addData("Left Power", leftDrive.getPower());
+        telemetry.addData("Right Power", rightDrive.getPower());
 
 
         // Show the elapsed game time and wheel power.

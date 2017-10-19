@@ -76,7 +76,7 @@ public class Encoders extends LinearOpMode {
         /*while(opModeIsActive() && (leftMotor.isBusy() && rightMotor.isBusy())){
             telemetry.addData("Distance Left", leftMotor.getCurrentPosition() * CIRCUMFERENCE / NUM_TICKS);
             telemetry.addData("Distance Right", rightMotor.getCurrentPosition() * CIRCUMFERENCE / NUM_TICKS);
-            telemetry.update(); //lol.
+            telemetry.update(); //lollooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooool.
         }*/
 
         long time = System.currentTimeMillis();

@@ -8,12 +8,12 @@ import com.qualcomm.robotcore.hardware.*;
  * Created by guydu on 10/17/2017.
  */
 
-public class MultifunctionCart{
+public class Robot {
 
     DcMotor leftMotor;
     DcMotor rightMotor;
 
-    public MultifunctionCart() {
+    public Robot() {
 
     }
 

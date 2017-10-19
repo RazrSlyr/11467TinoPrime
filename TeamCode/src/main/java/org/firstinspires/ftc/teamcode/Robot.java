@@ -10,6 +10,9 @@ import com.qualcomm.robotcore.hardware.*;
 
 public class Robot {
 
+    Servo leftClawServo;
+    Servo rightClawServo;
+
     DcMotor leftMotor;
     DcMotor rightMotor;
 
@@ -22,8 +25,14 @@ public class Robot {
         leftMotor = hardwareMap.dcMotor.get("leftMotor");
         rightMotor = hardwareMap.dcMotor.get("rightMotor");
 
-
+        leftClawServo = hardwareMap.servo.get("leftCLawServo");
+        rightClawServo = hardwareMap.servo.get("rightClawServo");
     }
 
+    public void moveClaw(double angle){
+        leftClawServo.setPosition(angle / 180);
+        rightClawServo.setPosition(angle / 180);
+
+    }
 
 }

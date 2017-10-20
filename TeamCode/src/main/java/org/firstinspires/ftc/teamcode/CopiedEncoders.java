@@ -22,10 +22,6 @@ public class CopiedEncoders extends LinearOpMode {
 
     public void runOpMode(){
 
-
-
-        robot.setHardwareMap(hardwareMap);
-
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 

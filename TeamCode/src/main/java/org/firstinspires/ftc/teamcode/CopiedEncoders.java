@@ -45,6 +45,7 @@ public class CopiedEncoders extends LinearOpMode {
         int newRightTarget;
 
         // Ensure that the opmode is still active
+
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller

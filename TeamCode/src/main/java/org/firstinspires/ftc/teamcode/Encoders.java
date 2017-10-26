@@ -79,8 +79,8 @@ public class Encoders extends LinearOpMode {
             telemetry.update(); //lollooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooool.
         }*/
 
-        long time = System.currentTimeMillis();
-        while(opModeIsActive() && System.currentTimeMillis() - time < 2000) continue;
+       /* long time = System.currentTimeMillis();
+        while(opModeIsActive() && System.currentTimeMillis() - time < 2000) continue;*/
 
 
 

@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
@@ -25,6 +26,9 @@ public class FinalAuto extends LinearOpMode{
      * localization engine.
      */
     VuforiaLocalizer vuforia;
+
+    String vuMarkName;
+
 
     public void runOpMode(){
         robot.setHardwareMap(hardwareMap);
@@ -79,6 +83,37 @@ public class FinalAuto extends LinearOpMode{
 
 
         waitForStart();
+
+
+
+        while(opModeIsActive()){
+            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+            if (vuMark != RelicRecoveryVuMark.UNKNOWN){
+                vuMarkName = vuMark.name();
+            }
+            switch (vuMarkName){
+                case "CENTER":
+                    robot.moveDistance(1.0, 0.5, this);
+                    robot.gyroTurn(0.5, 90, this);
+                    robot.moveDistance(3.0, 0.5, this);
+                    robot.gyroTurn(0.5, 90, this);
+                    break;
+                case "LEFT":
+                    robot.moveDistance(1.0, 0.5, this);
+                    robot.gyroTurn(0.5, 90, this);
+                    robot.moveDistance(3.0, 0.5, this);
+                    robot.gyroTurn(0.5, 90, this);
+                    break;
+                case "RIGHT":
+                    robot.moveDistance(1.0, 0.5, this);
+                    robot.gyroTurn(0.5, 90, this);
+                    robot.moveDistance(3.0, 0.5, this);
+                    robot.gyroTurn(0.5, 90, this);
+                    break;
+                default:
+                    break;
+            }
+        }
 
     }
 }

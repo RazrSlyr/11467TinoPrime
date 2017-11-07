@@ -93,22 +93,25 @@ public class FinalAuto extends LinearOpMode{
             }
             switch (vuMarkName){
                 case "CENTER":
-                    robot.moveDistance(1.0, 0.5, this);
+                    robot.moveDistance(12, 0.5, this);
                     robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(3.0, 0.5, this);
+                    robot.moveDistance(24 + 8 + 3/16 + 61/16, 0.5, this);
                     robot.gyroTurn(0.5, 90, this);
+                    robot.moveDistance(3.5, 0.5,this);
                     break;
                 case "LEFT":
-                    robot.moveDistance(1.0, 0.5, this);
+                    robot.moveDistance(12, 0.5, this);
                     robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(3.0, 0.5, this);
+                    robot.moveDistance(24 + 3/8 + 119/32, 0.5, this);
                     robot.gyroTurn(0.5, 90, this);
+                    robot.moveDistance(3.5, 0.5,this);
                     break;
                 case "RIGHT":
-                    robot.moveDistance(1.0, 0.5, this);
+                    robot.moveDistance(12, 0.5, this);
                     robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(3.0, 0.5, this);
+                    robot.moveDistance(24 + 16 + 3/16 + 119/32, 0.5, this);
                     robot.gyroTurn(0.5, 90, this);
+                    robot.moveDistance(3.5, 0.5,this);
                     break;
                 default:
                     break;

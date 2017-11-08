@@ -65,14 +65,14 @@ public class TeleOne extends OpMode
      */
     @Override
     public void init() {
-        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        telemetry.addData("Status", "Initialized");
 
         leftDrive = hardwareMap.dcMotor.get("leftMotor");
         rightDrive = hardwareMap.dcMotor.get("rightMotor");
+        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         telemetry.addData("Status", "Initialized");
+        telemetry.update();
     }
 
     /*

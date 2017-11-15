@@ -59,6 +59,8 @@ public class TeleOne extends OpMode
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
+    private double coef = 1;
+    private boolean xPress = false;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -100,16 +102,33 @@ public class TeleOne extends OpMode
         double leftX = gamepad1.left_stick_x;
         double rightX = gamepad1.right_stick_x;
 
-        leftDrive.setPower(leftY + rightX);
-        rightDrive.setPower(leftY - rightX);
-        telemetry.addData("r x", rightX);
-        telemetry.addData("l y", leftY);
-        telemetry.addData("Left Power", leftDrive.getPower());
-        telemetry.addData("Right Power", rightDrive.getPower());
+        leftDrive.setPower(coef * (leftY + rightX));
+        rightDrive.setPower(coef* (leftY - rightX));
+
+        if(!gamepad1.x && xPress){
+            if(coef == 0.5){
+                coef = 1;
+            } else if(coef == 1){
+                coef = 0.5;
+            }
+            xPress = false;
+        }
+
+
+        if (gamepad1.x){
+            xPress =  true;
+        }
+
+
+
+
 
 
         // Show the elapsed game time and wheel power.
+        telemetry.addData("Gamepad X Pressed?", xPress);
+        telemetry.addData("Speed", Double.toString(coef));
         telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.update();
     }
 
     /*

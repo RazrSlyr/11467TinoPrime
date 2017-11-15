@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Robot {
 
-    final double CIRCUMFERENCE = 10;
+    final double CIRCUMFERENCE = 3.54331 * Math.PI;
     final double TICKS_PER_ROTATION = 2460;
 
     Servo leftClawServo;
@@ -39,10 +39,12 @@ public class Robot {
         leftMotor = hardwareMap.dcMotor.get("leftMotor");
         rightMotor = hardwareMap.dcMotor.get("rightMotor");
 
-        leftClawServo = hardwareMap.servo.get("leftCLawServo");
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+     /*   leftClawServo = hardwareMap.servo.get("leftCLawServo");
         rightClawServo = hardwareMap.servo.get("rightClawServo");
 
-        gyro = (ModernRoboticsI2cGyro)hardwareMap.i2cDevice.get("Gyro");
+        gyro = (ModernRoboticsI2cGyro)hardwareMap.i2cDevice.get("Gyro");*/
     }
 
     public void moveClaw(double angle){

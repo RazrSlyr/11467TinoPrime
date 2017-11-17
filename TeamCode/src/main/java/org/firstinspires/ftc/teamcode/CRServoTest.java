@@ -22,7 +22,7 @@ public class CRServoTest extends OpMode {
         crServo = hardwareMap.crservo.get("crServo");
     }
 
-    public void     loop(){
+    public void loop(){
 
         crServo.setPower(0.5);
 

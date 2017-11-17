@@ -12,7 +12,7 @@ public class MoveTest extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        double quarter = Math.PI * Math.sqrt(12.98 * 12.98 + 11.38 * 11.38) / 8;
+        double quarter = Math.PI * Math.hypot(12.98, 9.75) / 8;
 
 
         Robot robot = new Robot();

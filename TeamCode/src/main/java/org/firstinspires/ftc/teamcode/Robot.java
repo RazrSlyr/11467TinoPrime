@@ -39,7 +39,7 @@ public class Robot {
         leftMotor = hardwareMap.dcMotor.get("leftMotor");
         rightMotor = hardwareMap.dcMotor.get("rightMotor");
 
-   ;//     leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
      /*   leftClawServo = hardwareMap.servo.get("leftCLawServo");
         rightClawServo = hardwareMap.servo.get("rightClawServo");

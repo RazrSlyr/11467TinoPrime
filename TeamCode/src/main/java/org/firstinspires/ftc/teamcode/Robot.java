@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Robot {
 
     final double CIRCUMFERENCE = 3.54331 * Math.PI;
-    final double TICKS_PER_ROTATION = 2460;
+    final double TICKS_PER_ROTATION = 2460 * 12/53.5 * 24/25.5;
 
     Servo leftClawServo;
     Servo rightClawServo;
@@ -39,7 +39,7 @@ public class Robot {
         leftMotor = hardwareMap.dcMotor.get("leftMotor");
         rightMotor = hardwareMap.dcMotor.get("rightMotor");
 
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+   ;//     leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
      /*   leftClawServo = hardwareMap.servo.get("leftCLawServo");
         rightClawServo = hardwareMap.servo.get("rightClawServo");

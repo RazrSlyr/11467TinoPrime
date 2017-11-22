@@ -81,6 +81,39 @@ public class Robot {
 
     }
 
+    public void turn(double angle, double speed, LinearOpMode linearOpMode){
+        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        double distance = (Math.PI * Math.hypot(16, 14.5) / 8) * (angle / 90);
+
+        int numTicks = (int)(distance / CIRCUMFERENCE * TICKS_PER_ROTATION);
+
+        leftMotor.setTargetPosition(numTicks);
+        rightMotor.setTargetPosition(numTicks);
+
+        leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        leftMotor.setPower(speed);
+        rightMotor.setPower(speed);
+
+        while (leftMotor.isBusy() && rightMotor.isBusy() && linearOpMode.opModeIsActive()){
+            linearOpMode.telemetry.addData("Left Motor Position", leftMotor.getCurrentPosition());
+            linearOpMode.telemetry.update();
+        }
+
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+    }
+
     public void gyroTurn (double speed, double angle, LinearOpMode linearOpMode) {
 
         // keep looping while we are still active, and not on heading.

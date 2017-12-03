@@ -29,7 +29,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -52,61 +54,16 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Gyro Test", group="Iterative Opmode")
-public class GyroTest extends OpMode
-{
-    // Declare OpMode members.
-    GyroSensor gyroSensor;
-    ColorSensor colorSensor;
-
-    /*
-     * Code to run ONCE when the driver hits INIT
-     */
-    @Override
-    public void init() {
-        telemetry.addData("Status", "Initialized");
-        gyroSensor = hardwareMap.gyroSensor.get("gyroSensor");
-        gyroSensor.calibrate();
-        while(gyroSensor.isCalibrating()){
-            telemetry.addData("Gyro:", "Is Calibrating");
-            telemetry.update();
-        }
-        telemetry.addData("Gyro:", "Is Not Calibrating");
+@Autonomous(name="GyroTest", group=" ")
+public class GyroTest extends LinearOpMode {
+    Robot robot = new Robot();
+    public void runOpMode() {
+        robot.setHardwareMap(hardwareMap);
+        waitForStart();
+        telemetry.addData("Starting heading", robot.gyro.getHeading());
+        robot.myroTurn(90, 0.5, this);
+        telemetry.addData("End Heading", robot.gyro.getHeading());
         telemetry.update();
-
-    }
-
-    /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-     */
-    @Override
-    public void init_loop() {
-    }
-
-    /*
-     * Code to run ONCE when the driver hits PLAY
-     */
-    @Override
-    public void start() {
-
-    }
-
-    /*
-     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
-     */
-    @Override
-    public void loop() {
-        telemetry.addData("Angle:", gyroSensor.getRotationFraction() * 360.0);
-        telemetry.update();
-    }
-
-
-
-    /*
-     * Code to run ONCE after the driver hits STOP
-     */
-    @Override
-    public void stop() {
 
     }
 

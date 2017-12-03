@@ -18,11 +18,11 @@ public class Robot {
     final double CIRCUMFERENCE = 3.54331 * Math.PI;
     final double TICKS_PER_ROTATION = 2460 * 12/53.5 * 24/25.5;
 
-    Servo leftClawServo;
-    Servo rightClawServo;
+    CRServo claw;
 
     DcMotor leftMotor;
     DcMotor rightMotor;
+    DcMotor slide;
 
     ModernRoboticsI2cGyro gyro;
 
@@ -41,17 +41,17 @@ public class Robot {
 
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-     /*   leftClawServo = hardwareMap.servo.get("leftCLawServo");
-        rightClawServo = hardwareMap.servo.get("rightClawServo");
+       // claw = hardwareMap.crservo.get("Claw");
+        //slide = hardwareMap.dcMotor.get("slide");
 
-        gyro = (ModernRoboticsI2cGyro)hardwareMap.i2cDevice.get("Gyro");*/
-    }
+        gyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "Gyro");
 
-    public void moveClaw(double angle){
-        leftClawServo.setPosition(angle / 180);
-        rightClawServo.setPosition(angle / 180);
+        gyro.calibrate();
+        while(gyro.isCalibrating());
 
     }
+
+
 
     public void moveDistance(double distance, double speed, LinearOpMode linearOpMode){
         leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -89,7 +89,7 @@ public class Robot {
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        double distance = (Math.PI * Math.hypot(16, 14.5) / 8) * (angle / 90);
+        double distance = (Math.PI * Math.hypot(16, 14.5) / 8) * (angle / 72.21469806);
 
         int numTicks = (int)(distance / CIRCUMFERENCE * TICKS_PER_ROTATION);
 
@@ -111,6 +111,20 @@ public class Robot {
         rightMotor.setPower(0);
 
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+    }
+
+    public void myroTurn(double angle, double speed, LinearOpMode linearOpMode){
+        double target = gyro.getHeading() + angle > 360 ? (gyro.getHeading() + angle) - 360 : gyro.getHeading() + angle;
+
+
+        while(!(gyro.getHeading() < target + 3 && gyro.getHeading() > target - 3) && linearOpMode.opModeIsActive());
+        {
+            leftMotor.setPower(speed);
+            rightMotor.setPower(-speed);
+        }
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
 
     }
 

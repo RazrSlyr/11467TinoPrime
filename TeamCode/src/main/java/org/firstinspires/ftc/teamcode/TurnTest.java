@@ -12,11 +12,16 @@ import com.qualcomm.robotcore.hardware.HardwareDevice;
 
 @Autonomous (name = "TurnTest", group = "")
 public class TurnTest extends LinearOpMode {
+    Robot robot = new Robot();
+
     @Override
     public void runOpMode() throws InterruptedException {
-        Robot robot = new Robot();
         robot.setHardwareMap(hardwareMap);
+        waitForStart();
 
+        for(int i = 0; i < 1; i++) {
+            robot.turn(90, 0.5, this);
+        }
 
 
     }

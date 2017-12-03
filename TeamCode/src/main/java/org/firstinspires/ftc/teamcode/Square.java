@@ -15,7 +15,7 @@ public class Square extends LinearOpMode {
 
         for(int i = 0; i < 4; i++){
            robot.moveDistance(12, 0.5, (LinearOpMode) this);
-           robot.turn(90, 0.5, (LinearOpMode) this);
+           robot.myroTurn(0.5, 90, this);
         }
     }
 }

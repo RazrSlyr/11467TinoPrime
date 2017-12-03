@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Created by guydu on 10/26/2017.
  */
 
+@Autonomous(name = "Final Auto", group = "")
 public class FinalAuto extends LinearOpMode{
     Robot robot = new Robot();
 
@@ -27,7 +29,7 @@ public class FinalAuto extends LinearOpMode{
      */
     VuforiaLocalizer vuforia;
 
-    String vuMarkName;
+    String vuMarkName = "";
 
 
     public void runOpMode(){
@@ -61,7 +63,7 @@ public class FinalAuto extends LinearOpMode{
          * Here we chose the back (HiRes) camera (for greater range), but
          * for a competition robot, the front camera might be more convenient.
          */
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
         this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
 
         /**
@@ -82,7 +84,7 @@ public class FinalAuto extends LinearOpMode{
         relicTrackables.activate();
 
 
-        waitForStart();
+
 
 
 
@@ -93,25 +95,19 @@ public class FinalAuto extends LinearOpMode{
             }
             switch (vuMarkName){
                 case "CENTER":
-                    robot.moveDistance(12, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
+
                     robot.moveDistance(24 + 8 + 3/16 + 61/16, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(3.5, 0.5,this);
+                    stop();
                     break;
                 case "LEFT":
-                    robot.moveDistance(12, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
+
                     robot.moveDistance(24 + 3/8 + 119/32, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(3.5, 0.5,this);
+                    stop();
                     break;
                 case "RIGHT":
-                    robot.moveDistance(12, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
+
                     robot.moveDistance(24 + 16 + 3/16 + 119/32, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(3.5, 0.5,this);
+                    stop();
                     break;
                 default:
                     break;

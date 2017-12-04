@@ -41,10 +41,10 @@ public class Robot {
 
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-       // claw = hardwareMap.crservo.get("Claw");
+      // claw = hardwareMap.crservo.get("Claw");
         //slide = hardwareMap.dcMotor.get("slide");
 
-        gyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "Gyro");
+        gyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
 
         gyro.calibrate();
         while(gyro.isCalibrating());

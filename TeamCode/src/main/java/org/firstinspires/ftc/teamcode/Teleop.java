@@ -16,6 +16,7 @@ public class Teleop extends OpMode{
     double speed = 0.5;
 
     Robot robot = new Robot();
+
     public void init() {
         robot.setHardwareMap(hardwareMap);
         telemetry.addData("Ready", "");
@@ -36,19 +37,12 @@ public class Teleop extends OpMode{
         robot.slide.setPower(-gamepad2.right_stick_y);
 
         if(gamepad2.right_trigger > 0){
-            robot.claw.setPower(0.5);
+            robot.iterateOpening();
         }else if(gamepad2.left_trigger > 0){
-            robot.claw.setPower(-0.5);
+            robot.iterateClosing();
         } else {
             robot.claw.setPower(0);
         }
-
-
-
-
-
-
-
 
     }
 }

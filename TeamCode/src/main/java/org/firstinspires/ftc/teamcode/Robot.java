@@ -30,6 +30,10 @@ public class Robot {
     static final double     P_TURN_COEFF            = 0.1;      // Larger is more responsive, but also less stable
     static final double     P_DRIVE_COEFF           = 0.15;     // Larger is more responsive, but also less stable
 
+    private double percentOpen = 0;
+    private long last_iter;
+    static final long     OPEN_DELAY = 1000; //millis
+
     public Robot() {
 
     }
@@ -170,6 +174,49 @@ public class Robot {
 
         return onTarget;
     }
+
+    public void openClaw(){
+        resetCurrentTime();
+        while(iterateOpening());
+    }
+
+    public void closeClaw(){
+        resetCurrentTime();
+        while(iterateClosing());
+    }
+
+    public void resetCurrentTime(){
+        last_iter = System.currentTimeMillis();
+    }
+
+    public boolean iterateOpening(){
+        if(claw.getPower() == 0) resetCurrentTime();
+        double percentChange = 100.0 * (System.currentTimeMillis() - last_iter) / (OPEN_DELAY);
+        resetCurrentTime();
+        percentOpen += percentChange;
+        if(percentOpen <= 100){
+            claw.setPower(-0.5);
+        }
+        else{
+            claw.setPower(0);
+        }
+        return percentOpen <= 100;
+    }
+
+    public boolean iterateClosing(){
+        if(claw.getPower() == 0) resetCurrentTime();
+        double percentChange = -100.0 * (System.currentTimeMillis() - last_iter) / (OPEN_DELAY);
+        resetCurrentTime();
+        percentOpen += percentChange;
+        if(percentOpen >= 0){
+            claw.setPower(0.5);
+        }
+        else{
+            claw.setPower(0);
+        }
+        return percentOpen >= 0;
+    }
+
 
     public double getError(double targetAngle) {
 

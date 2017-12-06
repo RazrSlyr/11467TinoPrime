@@ -175,14 +175,14 @@ public class Robot {
         return onTarget;
     }
 
-    public void openClaw(){
+    public void openClaw(LinearOpMode linearOpMode){
         resetCurrentTime();
-        while(iterateOpening());
+        while(iterateOpening() && linearOpMode.opModeIsActive());
     }
 
-    public void closeClaw(){
+    public void closeClaw(LinearOpMode linearOpMode){
         resetCurrentTime();
-        while(iterateClosing());
+        while(iterateClosing() && linearOpMode.opModeIsActive());
     }
 
     public void resetCurrentTime(){

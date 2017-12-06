@@ -122,6 +122,8 @@ public class RSFinalAuto extends LinearOpMode{
             robot.turn(90, 0.5, this);
 
             robot.moveDistance(24 - Robot.LENGTH/2 - 6, 0.5, this);
+
+            robot.openClaw(this);
         }
 
     }

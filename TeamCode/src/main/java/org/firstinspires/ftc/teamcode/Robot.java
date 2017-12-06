@@ -34,7 +34,7 @@ public class Robot {
 
     private double percentOpen = 0;
     private long last_iter;
-    static final long     OPEN_DELAY = 1000; //millis
+    static final long     OPEN_DELAY = 300; //millis
 
     public Robot() {
 
@@ -198,7 +198,7 @@ public class Robot {
         resetCurrentTime();
         percentOpen += percentChange;
         if(percentOpen <= 100){
-            claw.setPower(-0.5);
+            claw.setPower(0.5);
         }
         else{
             claw.setPower(0);
@@ -212,7 +212,7 @@ public class Robot {
         resetCurrentTime();
         percentOpen += percentChange;
         if(percentOpen >= 0){
-            claw.setPower(0.5);
+            claw.setPower(-0.5);
         }
         else{
             claw.setPower(0);

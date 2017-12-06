@@ -20,7 +20,7 @@ public class TurnTest extends LinearOpMode {
         waitForStart();
 
         for(int i = 0; i < 1; i++) {
-            robot.turn(90, 0.5, this);
+            robot.myroTurn(90, 0.5, this);
         }
 
 

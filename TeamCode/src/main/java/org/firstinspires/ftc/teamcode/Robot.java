@@ -26,6 +26,8 @@ public class Robot {
 
     ModernRoboticsI2cGyro gyro;
 
+    public static double WIDTH = 14.5, LENGTH = 16;             //TODO update robot size
+
     static final double     HEADING_THRESHOLD       = 1;        // As tight as we can make it with an integer gyro
     static final double     P_TURN_COEFF            = 0.1;      // Larger is more responsive, but also less stable
     static final double     P_DRIVE_COEFF           = 0.15;     // Larger is more responsive, but also less stable
@@ -122,11 +124,12 @@ public class Robot {
         double target = gyro.getHeading() + angle > 360 ? (gyro.getHeading() + angle) - 360 : gyro.getHeading() + angle;
 
 
-        while(!(gyro.getHeading() < target + 3 && gyro.getHeading() > target - 3) && linearOpMode.opModeIsActive());
+        while(!(gyro.getHeading() < target + 3 && gyro.getHeading() > target - 3) && linearOpMode.opModeIsActive())
         {
             leftMotor.setPower(speed);
             rightMotor.setPower(-speed);
         }
+
         leftMotor.setPower(0);
         rightMotor.setPower(0);
 

@@ -15,8 +15,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Created by guydu on 10/26/2017.
  */
 
-@Autonomous(name = "Final Auto", group = "")
-public class FinalAuto extends LinearOpMode{
+@Autonomous(name = "Red South Final", group = "Final")
+public class RSFinalAuto extends LinearOpMode{
     Robot robot = new Robot();
 
     public static final String TAG = "Vuforia VuMark Sample";
@@ -88,11 +88,17 @@ public class FinalAuto extends LinearOpMode{
 
 
 
-        while(opModeIsActive()){
+        if(opModeIsActive()){
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark != RelicRecoveryVuMark.UNKNOWN){
-                vuMarkName = vuMark.name();
+
+            while (vuMark.equals(RelicRecoveryVuMark.UNKNOWN) && opModeIsActive()){
+                vuMark = RelicRecoveryVuMark.from(relicTemplate);
             }
+
+            vuMarkName = vuMark.name();
+
+            robot.turn(-90, 0.5, this);
+
             switch (vuMarkName){
                 case "CENTER":
 
@@ -112,6 +118,10 @@ public class FinalAuto extends LinearOpMode{
                 default:
                     break;
             }
+
+            robot.turn(90, 0.5, this);
+
+            robot.moveDistance(24 - Robot.LENGTH/2 - 6, 0.5, this);
         }
 
     }

@@ -15,7 +15,9 @@ public class BSDumbAuto extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         Robot robot = new Robot();
         robot.setHardwareMap(hardwareMap);
-        robot.turn(90, 0.5, this);
         robot.moveDistance(36, 0.5, this);
+        robot.myroTurn(90, this);
+        robot.moveDistance(12, 0.5, this);
+
     }
 }

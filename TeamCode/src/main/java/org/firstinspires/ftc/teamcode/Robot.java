@@ -120,14 +120,15 @@ public class Robot {
 
     }
 
-    public void myroTurn(double angle, double speed, LinearOpMode linearOpMode){
+    public void myroTurn(double angle, LinearOpMode linearOpMode){
         double target = gyro.getHeading() + angle > 360 ? (gyro.getHeading() + angle) - 360 : gyro.getHeading() + angle;
 
 
         while(!(gyro.getHeading() < target + 3 && gyro.getHeading() > target - 3) && linearOpMode.opModeIsActive())
         {
+            double speed = 0.1 + 0.4 * Math.abs((gyro.getHeading() - target) / (target));
             leftMotor.setPower(speed);
-            rightMotor.setPower(-speed);
+            rightMotor.setPower(speed);
         }
 
         leftMotor.setPower(0);

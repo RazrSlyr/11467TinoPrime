@@ -97,7 +97,7 @@ public class BSFinalAuto extends LinearOpMode{
 
             vuMarkName = vuMark.name();
 
-            robot.turn(90, 0.5, this);
+            robot.myroTurn(90, this);
 
             switch (vuMarkName) {
                 case "CENTER":
@@ -119,7 +119,7 @@ public class BSFinalAuto extends LinearOpMode{
                     break;
             }
 
-            robot.turn(90, 0.5, this);
+            robot.myroTurn(90, this);
 
             robot.moveDistance(24 - Robot.LENGTH/2 - 6, 0.5, this);
 

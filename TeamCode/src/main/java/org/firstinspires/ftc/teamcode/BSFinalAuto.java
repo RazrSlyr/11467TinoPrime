@@ -99,20 +99,20 @@ public class BSFinalAuto extends LinearOpMode{
 
             robot.turn(90, 0.5, this);
 
-            switch (vuMarkName){
+            switch (vuMarkName) {
                 case "CENTER":
 
-                    robot.moveDistance(24 + 8 + 3/16 + 61/16, 0.5, this);
+                    robot.moveDistance(24 + 8 + 3 / 16 + 61 / 16, 0.5, this);
                     stop();
                     break;
                 case "LEFT":
 
-                    robot.moveDistance(24 + 3/8 + 119/32, 0.5, this);
+                    robot.moveDistance(24 + 3 / 8 + 119 / 32, 0.5, this);
                     stop();
                     break;
                 case "RIGHT":
 
-                    robot.moveDistance(24 + 16 + 3/16 + 119/32, 0.5, this);
+                    robot.moveDistance(24 + 16 + 3 / 16 + 119 / 32, 0.5, this);
                     stop();
                     break;
                 default:
@@ -122,6 +122,8 @@ public class BSFinalAuto extends LinearOpMode{
             robot.turn(90, 0.5, this);
 
             robot.moveDistance(24 - Robot.LENGTH/2 - 6, 0.5, this);
+
+            robot.openClaw(this);
         }
 
     }

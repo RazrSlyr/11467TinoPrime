@@ -37,9 +37,11 @@ public class Teleop extends OpMode{
         robot.slide.setPower(-gamepad2.right_stick_y);
 
         if(gamepad2.right_trigger > 0){
-            robot.iterateOpening();
+            //robot.iterateOpening();
+            robot.claw.setPower(0.5);
         }else if(gamepad2.left_trigger > 0){
-            robot.iterateClosing();
+            //robot.iterateClosing();
+            robot.claw.setPower(-0.5);
         } else {
             robot.claw.setPower(0);
         }

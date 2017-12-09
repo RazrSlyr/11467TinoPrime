@@ -32,8 +32,8 @@ public class RSFinalAuto extends LinearOpMode{
 
     String vuMarkName = "";
 
-
-    public void runOpMode(){
+    @Override
+    public void runOpMode() throws InterruptedException{
         robot.setHardwareMap(hardwareMap);
         /*
          * To start up Vuforia, tell it the view that we wish to use for camera monitor (on the RC phone);

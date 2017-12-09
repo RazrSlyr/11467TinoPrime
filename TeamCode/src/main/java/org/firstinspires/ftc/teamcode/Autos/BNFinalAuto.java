@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -10,13 +10,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.Robot;
 
 /**
  * Created by guydu on 10/26/2017.
  */
 
-@Autonomous(name = "Red South Final", group = "Final")
-public class RSFinalAuto extends LinearOpMode{
+@Autonomous(name = "Blue North Final", group = "Final")
+public class BNFinalAuto extends LinearOpMode {
     Robot robot = new Robot();
 
     public static final String TAG = "Vuforia VuMark Sample";
@@ -97,29 +98,34 @@ public class RSFinalAuto extends LinearOpMode{
 
             vuMarkName = vuMark.name();
 
-            robot.turn(-90, 0.5, this);
+            robot.myroTurn(90, this);
+
+            robot.moveDistance(24, 0.5, this);
+
+            robot.myroTurn(-90, this);
 
             switch (vuMarkName){
                 case "CENTER":
 
-                    robot.moveDistance(24 + 8 + 3/16 + 61/16, 0.5, this);
+                    robot.moveDistance(8 + 3/16 + 61/16, 0.5, this);
                     stop();
                     break;
                 case "LEFT":
 
-                    robot.moveDistance(24 + 3/8 + 119/32, 0.5, this);
+                    robot.moveDistance(3/8 + 119/32, 0.5, this);
                     stop();
                     break;
                 case "RIGHT":
 
-                    robot.moveDistance(24 + 16 + 3/16 + 119/32, 0.5, this);
+                    robot.moveDistance(3/16 + 119/32, 0.5, this);
                     stop();
                     break;
                 default:
                     break;
             }
 
-            robot.myroTurn(-90, this);
+            robot.myroTurn(90, this);
+
             robot.moveDistance(24 - Robot.LENGTH/2 - 6, 0.5, this);
 
             robot.openClaw(this);

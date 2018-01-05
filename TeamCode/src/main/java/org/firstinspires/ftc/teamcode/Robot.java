@@ -18,7 +18,10 @@ public class Robot {
     final double CIRCUMFERENCE = 3.54331 * Math.PI;
     final double TICKS_PER_ROTATION = 2460 * 12/53.5 * 24/25.5;
 
+
+
     CRServo claw;
+
 
     DcMotor leftMotor;
     DcMotor rightMotor;
@@ -48,11 +51,14 @@ public class Robot {
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
           claw = hardwareMap.crservo.get("claw");
+
+
          slide = hardwareMap.dcMotor.get("slide");
 
-        gyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
-
+       gyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
         gyro.calibrate();
+
+
         while(gyro.isCalibrating());
 
     }
@@ -121,18 +127,37 @@ public class Robot {
     }
 
     public void myroTurn(double angle, LinearOpMode linearOpMode){
+
+        linearOpMode.telemetry.addData("Heading Start", gyro.getHeading());
+        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         double target = gyro.getHeading() + angle > 360 ? (gyro.getHeading() + angle) - 360 : gyro.getHeading() + angle;
 
-
-        while(!(gyro.getHeading() < target + 3 && gyro.getHeading() > target - 3) && linearOpMode.opModeIsActive())
+        long
+                time = System.
+                currentTimeMillis();
+        double speed = 0;
+        while(!(gyro.getHeading() < target + 3 && gyro.getHeading() > target - 3) && linearOpMode.opModeIsActive() && System.currentTimeMillis() - time < 5000)
         {
-            double speed = 0.1 + 0.4 * Math.abs((gyro.getHeading() - target) / (target));
-            leftMotor.setPower(speed);
-            rightMotor.setPower(speed);
+            speed = 0.2 + 0.4 * Math.abs((gyro.getHeading() - target) / (target));
+            if(target > gyro.getHeading()) {
+                leftMotor.setPower(-speed);
+                rightMotor.setPower(speed);
+            } else {
+                leftMotor.setPower(speed);
+                rightMotor.setPower(-speed);
+            }
         }
 
         leftMotor.setPower(0);
         rightMotor.setPower(0);
+        linearOpMode.telemetry.addData("Speed", speed);
+        linearOpMode.telemetry.addData("Target", target);
+        linearOpMode.telemetry.addData("Heading End", gyro.getHeading());
+        linearOpMode.telemetry.update();
+
+
+
 
     }
 

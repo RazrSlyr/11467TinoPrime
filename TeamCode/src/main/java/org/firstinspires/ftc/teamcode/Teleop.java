@@ -25,14 +25,18 @@ public class Teleop extends OpMode{
     }
 
     public void loop(){
+
+
+
+
         double ly = -gamepad1.left_stick_y;
         double ry = -gamepad1.right_stick_y;
         double rx = gamepad1.right_stick_x;
         double lx = gamepad1.left_stick_x;
 
 
-        robot.leftMotor.setPower(Range.clip(ly + lx, -1 ,1));
-        robot.rightMotor.setPower(Range.clip(ly - lx, -1 ,1));
+        robot.leftMotor.setPower(Range.clip(ly + lx, -1 ,1) * speed);
+        robot.rightMotor.setPower(Range.clip(ly - rx, -1 ,1) * speed);
 
         robot.slide.setPower(-gamepad2.right_stick_y);
 
@@ -45,6 +49,9 @@ public class Teleop extends OpMode{
         } else {
             robot.claw.setPower(0);
         }
+
+
+
 
     }
 }

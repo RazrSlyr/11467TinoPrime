@@ -127,7 +127,7 @@ public class Robot {
     }
 
     public void myroTurn(double angle, LinearOpMode linearOpMode){
-
+        angle = -angle;
         linearOpMode.telemetry.addData("Heading Start", gyro.getHeading());
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

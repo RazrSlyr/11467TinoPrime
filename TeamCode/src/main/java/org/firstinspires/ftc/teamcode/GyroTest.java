@@ -61,7 +61,7 @@ public class GyroTest extends LinearOpMode {
         robot.setHardwareMap(hardwareMap);
         waitForStart();
         telemetry.addData("Starting heading", robot.gyro.getHeading());
-        robot.myroTurn(90, 0.5, this);
+        robot.myroTurn(90, this);
         telemetry.addData("End Heading", robot.gyro.getHeading());
         telemetry.update();
 

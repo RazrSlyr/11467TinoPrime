@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.Range;
@@ -88,6 +87,8 @@ public class Robot {
     }
 
     public void turn(double angle, double speed, LinearOpMode linearOpMode){
+
+
         leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -121,6 +122,7 @@ public class Robot {
     }
 
     public void myroTurn(double angle, LinearOpMode linearOpMode){
+        angle = -angle;
         double target = gyro.getHeading() + angle > 360 ? (gyro.getHeading() + angle) - 360 : gyro.getHeading() + angle;
 
 

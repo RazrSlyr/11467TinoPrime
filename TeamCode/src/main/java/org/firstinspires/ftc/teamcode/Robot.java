@@ -127,25 +127,29 @@ public class Robot {
     }
 
     public void myroTurn(double angle, LinearOpMode linearOpMode){
-        angle = -angle;
+
         linearOpMode.telemetry.addData("Heading Start", gyro.getHeading());
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         double target = gyro.getHeading() + angle > 360 ? (gyro.getHeading() + angle) - 360 : gyro.getHeading() + angle;
 
+        if(target < 0) {
+            target += 360;
+        }
+
         long
                 time = System.
                 currentTimeMillis();
         double speed = 0;
-        while(!(gyro.getHeading() < target + 3 && gyro.getHeading() > target - 3) && linearOpMode.opModeIsActive() && System.currentTimeMillis() - time < 5000)
+        while(!(gyro.getHeading() < target + 5 && gyro.getHeading() > target - 5) && linearOpMode.opModeIsActive() && System.currentTimeMillis() - time < 5000)
         {
-            speed = 0.2 + 0.4 * Math.abs((gyro.getHeading() - target) / (target));
-            if(target > gyro.getHeading()) {
-                leftMotor.setPower(-speed);
-                rightMotor.setPower(speed);
-            } else {
+            speed = 0.2 + 0.4 * Math.abs((gyro.getHeading() - target) / (angle));
+            if(angle < 0) {
                 leftMotor.setPower(speed);
                 rightMotor.setPower(-speed);
+            } else {
+                rightMotor.setPower(speed);
+                leftMotor.setPower(-speed);
             }
         }
 

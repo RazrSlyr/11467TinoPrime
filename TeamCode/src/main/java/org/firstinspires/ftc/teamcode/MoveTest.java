@@ -11,10 +11,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class MoveTest extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
+
+        double quarter = Math.PI * Math.hypot(12.98, 9.75) / 8;
+
+
         Robot robot = new Robot();
         robot.setHardwareMap(hardwareMap);
         waitForStart();
-        robot.moveDistance(12, 0.5, this);
+        robot.moveDistance(quarter, 0.5, this);
 
     }
 }

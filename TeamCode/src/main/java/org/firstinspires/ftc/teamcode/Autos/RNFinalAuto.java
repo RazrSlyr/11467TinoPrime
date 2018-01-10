@@ -1,36 +1,27 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autos;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.Robot;
 
 /**
- * Created by guydu on 10/26/2017.
+ * Created by guydu on 12/8/2017.
  */
 
-public class FinalAuto extends LinearOpMode{
+@Autonomous(name = "Red North Final", group = "Final")
+public class RNFinalAuto extends LinearOpMode{
     Robot robot = new Robot();
-
-    public static final String TAG = "Vuforia VuMark Sample";
-
-    OpenGLMatrix lastLocation = null;
-
-    /**
-     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
-     * localization engine.
-     */
     VuforiaLocalizer vuforia;
-
-    String vuMarkName;
-
-
-    public void runOpMode(){
+    String vuMarkName = "";
+    public void runOpMode() throws InterruptedException{
         robot.setHardwareMap(hardwareMap);
         /*
          * To start up Vuforia, tell it the view that we wish to use for camera monitor (on the RC phone);
@@ -61,7 +52,7 @@ public class FinalAuto extends LinearOpMode{
          * Here we chose the back (HiRes) camera (for greater range), but
          * for a competition robot, the front camera might be more convenient.
          */
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
         this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
 
         /**
@@ -81,41 +72,46 @@ public class FinalAuto extends LinearOpMode{
 
         relicTrackables.activate();
 
-
-        waitForStart();
-
-
-
-        while(opModeIsActive()){
+        if(opModeIsActive()){
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark != RelicRecoveryVuMark.UNKNOWN){
-                vuMarkName = vuMark.name();
+
+            while (vuMark.equals(RelicRecoveryVuMark.UNKNOWN) && opModeIsActive()){
+                vuMark = RelicRecoveryVuMark.from(relicTemplate);
             }
+
+            vuMarkName = vuMark.name();
+
+            robot.myroTurn(-90, this);
+
+            robot.moveDistance(24, 0.5, this);
+
+            robot.myroTurn(90, this);
+
             switch (vuMarkName){
                 case "CENTER":
-                    robot.moveDistance(12, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(24 + 8 + 3/16 + 61/16, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(3.5, 0.5,this);
+
+                    robot.moveDistance(8 + 3/16 + 61/16, 0.5, this);
+                    stop();
                     break;
                 case "LEFT":
-                    robot.moveDistance(12, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(24 + 3/8 + 119/32, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(3.5, 0.5,this);
+
+                    robot.moveDistance(3/8 + 119/32, 0.5, this);
+                    stop();
                     break;
                 case "RIGHT":
-                    robot.moveDistance(12, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(24 + 16 + 3/16 + 119/32, 0.5, this);
-                    robot.gyroTurn(0.5, 90, this);
-                    robot.moveDistance(3.5, 0.5,this);
+
+                    robot.moveDistance(3/16 + 119/32, 0.5, this);
+                    stop();
                     break;
                 default:
                     break;
             }
+
+            robot.myroTurn(-90, this);
+
+            robot.moveDistance(24 - Robot.LENGTH/2 - 6, 0.5, this);
+
+            robot.openClaw(this);
         }
 
     }

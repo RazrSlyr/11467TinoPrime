@@ -16,19 +16,28 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Robot {
 
     final double CIRCUMFERENCE = 3.54331 * Math.PI;
-    final double TICKS_PER_ROTATION = 2460;
+    final double TICKS_PER_ROTATION = 2460 * 12/53.5 * 24/25.5;
 
-    Servo leftClawServo;
-    Servo rightClawServo;
+
+
+    CRServo claw;
+
 
     DcMotor leftMotor;
     DcMotor rightMotor;
+    DcMotor slide;
 
     ModernRoboticsI2cGyro gyro;
 
-    static final double     HEADING_THRESHOLD       = 1 ;      // As tight as we can make it with an integer gyro
-    static final double     P_TURN_COEFF            = 0.1;     // Larger is more responsive, but also less stable
+    public static double WIDTH = 14.5, LENGTH = 16;             //TODO update robot size
+
+    static final double     HEADING_THRESHOLD       = 1;        // As tight as we can make it with an integer gyro
+    static final double     P_TURN_COEFF            = 0.1;      // Larger is more responsive, but also less stable
     static final double     P_DRIVE_COEFF           = 0.15;     // Larger is more responsive, but also less stable
+
+    private double percentOpen = 0;
+    private long last_iter;
+    static final long     OPEN_DELAY = 300; //millis
 
     public Robot() {
 
@@ -41,17 +50,20 @@ public class Robot {
 
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-     /*   leftClawServo = hardwareMap.servo.get("leftCLawServo");
-        rightClawServo = hardwareMap.servo.get("rightClawServo");
+          claw = hardwareMap.crservo.get("claw");
 
-        gyro = (ModernRoboticsI2cGyro)hardwareMap.i2cDevice.get("Gyro");*/
+
+         slide = hardwareMap.dcMotor.get("slide");
+
+       gyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
+        gyro.calibrate();
+
+
+        while(gyro.isCalibrating());
+
     }
 
-    public void moveClaw(double angle){
-        leftClawServo.setPosition(angle / 180);
-        rightClawServo.setPosition(angle / 180);
 
-    }
 
     public void moveDistance(double distance, double speed, LinearOpMode linearOpMode){
         leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -78,6 +90,78 @@ public class Robot {
 
         leftMotor.setPower(0);
         rightMotor.setPower(0);
+
+    }
+
+    public void turn(double angle, double speed, LinearOpMode linearOpMode){
+        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        double distance = (Math.PI * Math.hypot(16, 14.5) / 8) * (angle / 72.21469806);
+
+        int numTicks = (int)(distance / CIRCUMFERENCE * TICKS_PER_ROTATION);
+
+        leftMotor.setTargetPosition(numTicks);
+        rightMotor.setTargetPosition(numTicks);
+
+        leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        leftMotor.setPower(speed);
+        rightMotor.setPower(speed);
+
+        while (leftMotor.isBusy() && rightMotor.isBusy() && linearOpMode.opModeIsActive()){
+            linearOpMode.telemetry.addData("Left Motor Position", leftMotor.getCurrentPosition());
+            linearOpMode.telemetry.update();
+        }
+
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+    }
+
+    public void myroTurn(double angle, LinearOpMode linearOpMode){
+
+        linearOpMode.telemetry.addData("Heading Start", gyro.getHeading());
+        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        double target = gyro.getHeading() + angle > 360 ? (gyro.getHeading() + angle) - 360 : gyro.getHeading() + angle;
+
+        if(target < 0) {
+            target += 360;
+        }
+
+        long
+                time = System.
+                currentTimeMillis();
+        double speed = 0;
+        while(!(gyro.getHeading() < target + 5 && gyro.getHeading() > target - 5) && linearOpMode.opModeIsActive() && System.currentTimeMillis() - time < 5000)
+        {
+            speed = 0.2 + 0.4 * Math.abs((gyro.getHeading() - target) / (angle));
+            if(angle < 0) {
+                leftMotor.setPower(speed);
+                rightMotor.setPower(-speed);
+            } else {
+                rightMotor.setPower(speed);
+                leftMotor.setPower(-speed);
+            }
+        }
+
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+        linearOpMode.telemetry.addData("Speed", speed);
+        linearOpMode.telemetry.addData("Target", target);
+        linearOpMode.telemetry.addData("Heading End", gyro.getHeading());
+        linearOpMode.telemetry.update();
+
+
+
 
     }
 
@@ -123,6 +207,49 @@ public class Robot {
 
         return onTarget;
     }
+
+    public void openClaw(LinearOpMode linearOpMode){
+        resetCurrentTime();
+        while(iterateOpening() && linearOpMode.opModeIsActive());
+    }
+
+    public void closeClaw(LinearOpMode linearOpMode){
+        resetCurrentTime();
+        while(iterateClosing() && linearOpMode.opModeIsActive());
+    }
+
+    public void resetCurrentTime(){
+        last_iter = System.currentTimeMillis();
+    }
+
+    public boolean iterateOpening(){
+        if(claw.getPower() == 0) resetCurrentTime();
+        double percentChange = 100.0 * (System.currentTimeMillis() - last_iter) / (OPEN_DELAY);
+        resetCurrentTime();
+        percentOpen += percentChange;
+        if(percentOpen <= 100){
+            claw.setPower(0.5);
+        }
+        else{
+            claw.setPower(0);
+        }
+        return percentOpen <= 100;
+    }
+
+    public boolean iterateClosing(){
+        if(claw.getPower() == 0) resetCurrentTime();
+        double percentChange = -100.0 * (System.currentTimeMillis() - last_iter) / (OPEN_DELAY);
+        resetCurrentTime();
+        percentOpen += percentChange;
+        if(percentOpen >= 0){
+            claw.setPower(-0.5);
+        }
+        else{
+            claw.setPower(0);
+        }
+        return percentOpen >= 0;
+    }
+
 
     public double getError(double targetAngle) {
 

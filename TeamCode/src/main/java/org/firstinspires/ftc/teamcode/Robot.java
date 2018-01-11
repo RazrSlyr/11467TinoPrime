@@ -55,7 +55,7 @@ public class Robot {
 
          slide = hardwareMap.dcMotor.get("slide");
 
-       gyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
+        gyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
         gyro.calibrate();
 
 
@@ -139,7 +139,8 @@ public class Robot {
 
         long
                 time = System.
-                currentTimeMillis();
+                currentTimeMillis()
+        ;
         double speed = 0;
         while(!(gyro.getHeading() < target + 5 && gyro.getHeading() > target - 5) && linearOpMode.opModeIsActive() && System.currentTimeMillis() - time < 5000)
         {

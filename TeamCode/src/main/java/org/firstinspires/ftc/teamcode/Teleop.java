@@ -4,6 +4,7 @@ import android.graphics.Path;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -13,9 +14,16 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "Main Tele", group = " ")
 public class Teleop extends OpMode{
+
+    final double CIRCUMFERENCE = 0.721 * Math.PI;
+    final double TICKS_PER_ROTATION = 500; //Pretend it's 5 inches, scale later.
+
     double speed = 0.5;
 
     Robot robot = new Robot();
+    private boolean rBumpPressed = false;
+    private boolean lBumpPressed = false;
+    private boolean up = false;
 
     public void init() {
         robot.setHardwareMap(hardwareMap);
@@ -35,23 +43,81 @@ public class Teleop extends OpMode{
         double lx = gamepad1.left_stick_x;
 
 
-        robot.leftMotor.setPower(Range.clip(ly + lx, -1 ,1) * speed);
-        robot.rightMotor.setPower(Range.clip(ly - rx, -1 ,1) * speed);
+        robot.leftMotor.setPower((ly + lx) * speed);
+        robot.rightMotor.setPower((ly - lx) * speed);
 
-        robot.slide.setPower(-gamepad2.right_stick_y);
 
-        if(gamepad2.right_trigger > 0){
+
+
+       //robot.slide.setPower(gamepad1.right_stick_y);
+
+        if(gamepad1.left_trigger > 0){
             //robot.iterateOpening();
             robot.claw.setPower(0.5);
-        }else if(gamepad2.left_trigger > 0){
+        }else if(gamepad1.right_trigger > 0){
             //robot.iterateClosing();
             robot.claw.setPower(-0.5);
         } else {
             robot.claw.setPower(0);
         }
 
+        if (gamepad1.right_bumper && !(rBumpPressed || lBumpPressed) && !up) {
+            startMoveUp();
+        }
+
+        if (gamepad1.left_bumper && !(rBumpPressed || lBumpPressed) && up) {
+            startMoveDown();
+        }
+
+        if(rBumpPressed || lBumpPressed) {
+            checkPos();
+        }
 
 
+        telemetry.addData("L Power", robot.leftMotor.getPower());
+        telemetry.addData("R Power", robot.rightMotor.getPower());
+        telemetry.addData("Slide", robot.slide.getPower());
+        telemetry.update();
+
+
+
+
+    }
+    private void startMoveUp() {
+        robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.slide.setTargetPosition((int)((5 / CIRCUMFERENCE) * TICKS_PER_ROTATION));
+        robot.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.slide.setPower(0.5);
+        rBumpPressed = true;
+        up = true;
+    }
+
+    private void startMoveDown() {
+        robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.slide.setTargetPosition((int)((-5 / CIRCUMFERENCE) * TICKS_PER_ROTATION));
+        robot.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.slide.setPower(0.5);
+        lBumpPressed = true;
+        up = false;
+    }
+
+    private void checkPos() {
+        if(robot.slide.isBusy()) {
+            if(rBumpPressed) {
+                telemetry.addData("Moving:", "Up");
+            } else {
+                telemetry.addData("Moving:", "Down");
+            }
+            telemetry.update();
+        } else {
+            telemetry.addData("Moving:", "None");
+            telemetry.update();
+            robot.slide.setPower(0);
+            rBumpPressed = false;
+            lBumpPressed = false;
+        }
 
     }
 }

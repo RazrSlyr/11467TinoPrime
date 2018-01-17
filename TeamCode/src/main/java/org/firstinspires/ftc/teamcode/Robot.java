@@ -144,7 +144,7 @@ public class Robot {
         double speed = 0;
         while(!(gyro.getHeading() < target + 5 && gyro.getHeading() > target - 5) && linearOpMode.opModeIsActive() && System.currentTimeMillis() - time < 5000)
         {
-            speed = 0.2 + 0.4 * Math.abs((gyro.getHeading() - target) / (angle));
+            speed = 0.3 + 0.4 * Math.abs((gyro.getHeading() - target) / (angle));
             if(angle < 0) {
                 leftMotor.setPower(speed);
                 rightMotor.setPower(-speed);
@@ -249,6 +249,13 @@ public class Robot {
             claw.setPower(0);
         }
         return percentOpen >= 0;
+    }
+
+    public void openClaw2() {
+        claw.setPower(0.1);
+        long time = System.currentTimeMillis();
+        while(System.currentTimeMillis() - time < 1000);
+        claw.setPower(0);
     }
 
 

@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.util.Range;
 public class Teleop extends OpMode{
 
     final double CIRCUMFERENCE = 0.721 * Math.PI;
-    final double TICKS_PER_ROTATION = 500; //Pretend it's 5 inches, scale later.
+    final double TICKS_PER_ROTATION = 500 * 5/2.5 * 5/4.5 * 9/8; //Pretend it's 5 inches, scale later.
 
     double speed = 0.5;
 
@@ -86,7 +86,7 @@ public class Teleop extends OpMode{
     private void startMoveUp() {
         robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.slide.setTargetPosition((int)((5 / CIRCUMFERENCE) * TICKS_PER_ROTATION));
+        robot.slide.setTargetPosition((int)((7 / CIRCUMFERENCE) * TICKS_PER_ROTATION));
         robot.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.slide.setPower(0.5);
         rBumpPressed = true;
@@ -96,7 +96,7 @@ public class Teleop extends OpMode{
     private void startMoveDown() {
         robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.slide.setTargetPosition((int)((-5 / CIRCUMFERENCE) * TICKS_PER_ROTATION));
+        robot.slide.setTargetPosition((int)((-7 / CIRCUMFERENCE) * TICKS_PER_ROTATION));
         robot.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.slide.setPower(0.5);
         lBumpPressed = true;

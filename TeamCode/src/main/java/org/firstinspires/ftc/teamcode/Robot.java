@@ -251,10 +251,13 @@ public class Robot {
         return percentOpen >= 0;
     }
 
-    public void openClaw2() {
+    public void openClaw2(OpMode opMode) {
         claw.setPower(0.1);
         long time = System.currentTimeMillis();
-        while(System.currentTimeMillis() - time < 1000);
+        while(System.currentTimeMillis() - time < 3000) {
+            opMode.telemetry.addData("Claw Power", claw.getPower());
+            opMode.telemetry.update();
+        }
         claw.setPower(0);
     }
 

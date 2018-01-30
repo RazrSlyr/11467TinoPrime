@@ -124,7 +124,7 @@ public class BSFinalAuto extends LinearOpMode{
             telemetry.addData("Move 2", "");
 
           /*  robot.openClaw(this);*/
-            robot.openClaw2();
+            robot.openClaw2(this);
             telemetry.addData("Open", "");
 
             telemetry.update();

@@ -108,17 +108,16 @@ public class BNFinalAuto extends LinearOpMode {
                 case "CENTER":
 
                     robot.moveDistance(8 + 3/16 + 61/16, 0.5, this);
-                    stop();
+
                     break;
                 case "LEFT":
 
                     robot.moveDistance(3/8 + 119/32, 0.5, this);
-                    stop();
+
                     break;
                 case "RIGHT":
 
                     robot.moveDistance(3/16 + 119/32, 0.5, this);
-                    stop();
                     break;
                 default:
                     break;

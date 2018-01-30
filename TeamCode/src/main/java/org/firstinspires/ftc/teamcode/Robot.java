@@ -50,10 +50,10 @@ public class Robot {
 
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-          claw = hardwareMap.crservo.get("claw");
+        claw = hardwareMap.crservo.get("claw");
 
 
-         slide = hardwareMap.dcMotor.get("slide");
+        slide = hardwareMap.dcMotor.get("slide");
 
         gyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
         gyro.calibrate();
@@ -252,9 +252,9 @@ public class Robot {
     }
 
     public void openClaw2(OpMode opMode) {
-        claw.setPower(0.1);
+        claw.setPower(0.5);
         long time = System.currentTimeMillis();
-        while(System.currentTimeMillis() - time < 3000) {
+        while(System.currentTimeMillis() - time < 1500) {
             opMode.telemetry.addData("Claw Power", claw.getPower());
             opMode.telemetry.update();
         }

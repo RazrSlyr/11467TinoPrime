@@ -98,7 +98,7 @@ public class BNFinalAuto extends LinearOpMode {
 
             vuMarkName = vuMark.name();
 
-            robot.myroTurn(90, this);
+            robot.speedMyroTurn(90, 0.1, this);
 
             robot.moveDistance(24, 0.5, this);
 

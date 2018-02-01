@@ -81,7 +81,7 @@ public class RNFinalAuto extends LinearOpMode{
 
             vuMarkName = vuMark.name();
 
-            robot.myroTurn(-90, this);
+            robot.speedMyroTurn(-90, 0.1, this);
 
             robot.moveDistance(24, 0.5, this);
 
@@ -91,17 +91,17 @@ public class RNFinalAuto extends LinearOpMode{
                 case "CENTER":
 
                     robot.moveDistance(8 + 3/16 + 61/16, 0.5, this);
-                    stop();
+
                     break;
                 case "LEFT":
 
                     robot.moveDistance(3/8 + 119/32, 0.5, this);
-                    stop();
+
                     break;
                 case "RIGHT":
 
                     robot.moveDistance(3/16 + 119/32, 0.5, this);
-                    stop();
+
                     break;
                 default:
                     break;

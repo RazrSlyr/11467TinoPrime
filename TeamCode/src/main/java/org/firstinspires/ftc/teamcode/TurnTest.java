@@ -18,13 +18,8 @@ public class TurnTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.setHardwareMap(hardwareMap);
         waitForStart();
-        for (int i = 60; i < 150 && opModeIsActive(); i+= 10) {
-            robot.myroTurn(i, this);
-            long time = System.currentTimeMillis();
-            while (System.currentTimeMillis() - time < 2000);
-        }
+        robot.myroTurn(-90, this);
         while (opModeIsActive());
-
 
 
     }

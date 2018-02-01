@@ -166,6 +166,40 @@ public class Robot {
 
     }
 
+    public void speedMyroTurn(double angle, double speed, LinearOpMode linearOpMode) {
+        linearOpMode.telemetry.addData("Heading Start", gyro.getHeading());
+        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        double target = gyro.getHeading() + angle > 360 ? (gyro.getHeading() + angle) - 360 : gyro.getHeading() + angle;
+
+        if(target < 0) {
+            target += 360;
+        }
+
+        long
+                time = System.
+                currentTimeMillis()
+                ;
+
+        while(!(gyro.getHeading() < target + 5 && gyro.getHeading() > target - 5) && linearOpMode.opModeIsActive() && System.currentTimeMillis() - time < 5000)
+        {
+            if(angle < 0) {
+                leftMotor.setPower(speed);
+                rightMotor.setPower(-speed);
+            } else {
+                rightMotor.setPower(speed);
+                leftMotor.setPower(-speed);
+            }
+        }
+
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+        linearOpMode.telemetry.addData("Speed", speed);
+        linearOpMode.telemetry.addData("Target", target);
+        linearOpMode.telemetry.addData("Heading End", gyro.getHeading());
+        linearOpMode.telemetry.update();
+    }
+
     public void gyroTurn (double speed, double angle, LinearOpMode linearOpMode) {
 
         // keep looping while we are still active, and not on heading.
@@ -259,6 +293,11 @@ public class Robot {
             opMode.telemetry.update();
         }
         claw.setPower(0);
+    }
+
+    public void myWait(double numMilli) {
+        double time = System.currentTimeMillis();
+        while (System.currentTimeMillis() - time < numMilli);
     }
 
 

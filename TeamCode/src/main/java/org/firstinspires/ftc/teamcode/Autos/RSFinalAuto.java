@@ -98,32 +98,35 @@ public class RSFinalAuto extends LinearOpMode{
 
             vuMarkName = vuMark.name();
 
-            robot.turn(-90, 0.5, this);
+            robot.speedMyroTurn(-90, 0.1, this);
+            robot.myWait(2000);
 
             switch (vuMarkName){
                 case "CENTER":
 
                     robot.moveDistance(24 + 8 + 3/16 + 61/16, 0.5, this);
-                    stop();
+
                     break;
                 case "LEFT":
 
-                    robot.moveDistance(24 + 3/8 + 119/32, 0.5, this);
-                    stop();
+                    robot.moveDistance(24 + 16 + 3/16 + 119/32, 0.5, this);
+
                     break;
                 case "RIGHT":
 
-                    robot.moveDistance(24 + 16 + 3/16 + 119/32, 0.5, this);
-                    stop();
+                    robot.moveDistance(24 + 3/8 + 119/32, 0.5, this);
+
                     break;
                 default:
                     break;
             }
+            robot.myWait(2000);
 
             robot.myroTurn(-90, this);
             robot.moveDistance(24 - Robot.LENGTH/2 - 6, 0.5, this);
 
-            robot.openClaw(this);
+            robot.openClaw2(this);
+            while (opModeIsActive());
         }
 
     }

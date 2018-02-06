@@ -81,11 +81,20 @@ public class RNFinalAuto extends LinearOpMode{
 
             vuMarkName = vuMark.name();
 
-            robot.speedMyroTurn(-90, 0.1, this);
+            robot.speedMyroTurn(-90, 0.2175, this);
+            robot.myWait(1000);
+            telemetry.addData("Step", "1");
+            telemetry.update();
 
             robot.moveDistance(24, 0.5, this);
+            robot.myWait(1000);
+            telemetry.addData("Step", "1");
+            telemetry.update();
 
             robot.myroTurn(90, this);
+            robot.myWait(1000);
+            telemetry.addData("Step", "2");
+            telemetry.update();
 
             switch (vuMarkName){
                 case "CENTER":
@@ -106,12 +115,23 @@ public class RNFinalAuto extends LinearOpMode{
                 default:
                     break;
             }
+            robot.myWait(1000);
+            telemetry.addData("Step", "3");
+            telemetry.update();
 
-            robot.myroTurn(-90, this);
+            /*robot.myroTurn(-90, this);
+            robot.myWait(1000);
+            telemetry.addData("Step", "4");
+            telemetry.update();
 
             robot.moveDistance(24 - Robot.LENGTH/2 - 6, 0.5, this);
+            robot.myWait(1000);
+            telemetry.addData("Step", "5");
+            telemetry.update();
 
             robot.openClaw(this);
+            telemetry.addData("Step", "6");
+            telemetry.update();*/
         }
 
     }

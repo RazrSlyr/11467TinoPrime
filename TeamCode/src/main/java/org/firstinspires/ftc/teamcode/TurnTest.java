@@ -19,6 +19,13 @@ public class TurnTest extends LinearOpMode {
         robot.setHardwareMap(hardwareMap);
         waitForStart();
         robot.myroTurn(-90, this);
+        robot.calibrateGyro();
+        robot.myroTurn(90, this);
+        robot.calibrateGyro();
+        double val = robot.myroTurn(-90, this);
+        telemetry.addData("Trig Val",val);
+        telemetry.update();
+        robot.calibrateGyro();
         while (opModeIsActive());
 
 

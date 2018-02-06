@@ -129,9 +129,9 @@ public class Robot {
 
     }
 
-    public double myroTurn(double angle, LinearOpMode linearOpMode){
+    public void myroTurn(double angle, LinearOpMode linearOpMode){
 
-        double trigVal = -1000000;
+     //   double trigVal = -1000000;
 
         linearOpMode.telemetry.addData("Heading Start", gyro.getHeading());
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -144,41 +144,28 @@ public class Robot {
 
         long time = System.currentTimeMillis();
         double speed = 0;
-        while(!(gyro.getHeading() < target + 5 && gyro.getHeading() > target - 5) /*&& linearOpMode.opModeIsActive() && System.currentTimeMillis() - time < 5000*/)
+        while(!(gyro.getHeading() < target + 5 && gyro.getHeading() > target - 5))
         {
-            if(gyro.getHeading() < target + 2 && gyro.getHeading() > target - 2) {
-                trigVal = gyro.getHeading();
-            }
+
             linearOpMode.telemetry.addData("I'm", "Turning");
-            if(gyro.getHeading() < target + 2 && gyro.getHeading() > target - 2) {
-                trigVal = gyro.getHeading();
-            }
+
             linearOpMode.telemetry.update();
-            if(gyro.getHeading() < target + 2 && gyro.getHeading() > target - 2) {
-                trigVal = gyro.getHeading();
-            }
+
             speed = 0.325 + .1*(Math.abs((target - gyro.getHeading()) / angle));
-            if(gyro.getHeading() < target + 2 && gyro.getHeading() > target - 2) {
-                trigVal = gyro.getHeading();
-            }
+
             if(angle < 0) {
                 leftMotor.setPower(speed);
                 rightMotor.setPower(-speed);
-                if(gyro.getHeading() < target + 2 && gyro.getHeading() > target - 2) {
-                    trigVal = gyro.getHeading();
-                }
+
             } else {
                 rightMotor.setPower(speed);
                 leftMotor.setPower(-speed);
-                if(gyro.getHeading() < target + 2 && gyro.getHeading() > target - 2) {
-                    trigVal = gyro.getHeading();
-                }
+
             }
-            if(gyro.getHeading() < target + 2 && gyro.getHeading() > target - 2) {
-                trigVal = gyro.getHeading();
-            }
-            linearOpMode.telemetry.addData("Trig Val", trigVal);
+
+          //  linearOpMode.telemetry.addData("Trig Val", trigVal);
             linearOpMode.telemetry.update();
+
         }
 
         leftMotor.setPower(0);
@@ -189,9 +176,8 @@ public class Robot {
         linearOpMode.telemetry.addData("Target", target);
         linearOpMode.telemetry.addData("Heading End", gyro.getHeading());
         linearOpMode.telemetry.update();
-        return trigVal;
 
-
+    //    return trigVal;
 
 
     }

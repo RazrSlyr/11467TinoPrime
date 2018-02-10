@@ -16,7 +16,7 @@ public class SlideConfigure extends OpMode {
     }
 
     public void loop() {
-        robot.slide.setPower(-gamepad1.right_stick_y);
+        robot.slide.setPower(gamepad1.right_stick_y);
     }
 
 }

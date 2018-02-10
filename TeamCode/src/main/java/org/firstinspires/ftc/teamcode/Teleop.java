@@ -41,10 +41,11 @@ public class Teleop extends OpMode{
         double ry = -gamepad1.right_stick_y;
         double rx = gamepad1.right_stick_x;
         double lx = gamepad1.left_stick_x;
+        double turnConst = gamepad1.right_bumper ? 1 : (gamepad1.left_bumper ? -1 : 0);
 
 
-        robot.leftMotor.setPower((ly + lx) * speed);
-        robot.rightMotor.setPower((ly - lx) * speed);
+        robot.leftMotor.setPower((ly + turnConst) * speed);
+        robot.rightMotor.setPower((ly - turnConst) * speed);
 
 
 
@@ -53,15 +54,15 @@ public class Teleop extends OpMode{
 
         if(gamepad1.left_trigger > 0){
             //robot.iterateOpening();
-            robot.claw.setPower(0.5);
+            robot.claw.setPower(1);
         }else if(gamepad1.right_trigger > 0){
             //robot.iterateClosing();
-            robot.claw.setPower(-0.5);
+            robot.claw.setPower(-1);
         } else {
             robot.claw.setPower(0);
         }
 
-        if (gamepad1.right_bumper && !(rBumpPressed || lBumpPressed) && !up) {
+        /*if (gamepad1.right_bumper && !(rBumpPressed || lBumpPressed) && !up) {
             startMoveUp();
         }
 
@@ -71,7 +72,9 @@ public class Teleop extends OpMode{
 
         if(rBumpPressed || lBumpPressed) {
             checkPos();
-        }
+        }*/
+
+        robot.slide.setPower(-ry);
 
 
         telemetry.addData("L Power", robot.leftMotor.getPower());
@@ -83,7 +86,7 @@ public class Teleop extends OpMode{
 
 
     }
-    private void startMoveUp() {
+/*    private void startMoveUp() {
         robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.slide.setTargetPosition((int)((7 / CIRCUMFERENCE) * TICKS_PER_ROTATION));
@@ -119,5 +122,5 @@ public class Teleop extends OpMode{
             lBumpPressed = false;
         }
 
-    }
+    }*/
 }

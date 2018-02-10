@@ -98,7 +98,7 @@ public class BSFinalAuto extends LinearOpMode{
 
             vuMarkName = vuMark.name();
 
-            robot.speedMyroTurn(90, 0.1, this);
+            robot.encoderTurn(90, 0.2125, this);
 
             switch (vuMarkName) {
                 case "CENTER":
@@ -117,14 +117,14 @@ public class BSFinalAuto extends LinearOpMode{
                     break;
             }
 
-            robot.myroTurn(90, this);
+            robot.encoderTurn(90, 0.4, this);
             telemetry.addData("Turn 2", "");
 
             robot.moveDistance(24 - Robot.LENGTH/2 - 6, 0.5, this);
             telemetry.addData("Move 2", "");
 
           /*  robot.openClaw(this);*/
-            robot.openClaw2(this);
+            robot.openClaw(this);
             telemetry.addData("Open", "");
 
             telemetry.update();

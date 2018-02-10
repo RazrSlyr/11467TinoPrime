@@ -35,6 +35,8 @@ public class Robot {
     static final double     P_TURN_COEFF            = 0.1;      // Larger is more responsive, but also less stable
     static final double     P_DRIVE_COEFF           = 0.15;     // Larger is more responsive, but also less stable
 
+    public static double NINETY_DEG = 16.959 * 90/135 * 90/80;
+
     private double percentOpen = 0;
     private long last_iter;
     static final long     OPEN_DELAY = 300; //millis
@@ -96,30 +98,37 @@ public class Robot {
 
     }
 
-    /*public void encoderTurn90(double speed) {
+    public void encoderTurn(double angle, double speed, LinearOpMode op) {
         leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        double angle = 90;
-        int distance = (int) ((16.959 / CIRCUMFERENCE) * TICKS_PER_ROTATION / 2);
+        double newAng = (Math.abs(angle) / 90) * NINETY_DEG;
 
-        leftMotor.setTargetPosition(distance);
+        int distance = (int) ((newAng / CIRCUMFERENCE) * TICKS_PER_ROTATION);
+        if(angle < 0) {
+            leftMotor.setTargetPosition(-distance / 2 * 80/90 * 90/88);
+            rightMotor.setTargetPosition(distance);
+        } else {
+            leftMotor.setTargetPosition(distance);
+            rightMotor.setTargetPosition(-distance);
+        }
+
 
         leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftMotor.setPower(0.4);
-        rightMotor.setPower(-0.4);
+        leftMotor.setPower(speed);
+        rightMotor.setPower(speed);
 
-
+        while(leftMotor.isBusy() || rightMotor.isBusy() && op.opModeIsActive());
 
         leftMotor.setPower(0);
         rightMotor.setPower(0);
 
 
-    }*/
+    }
 
     public void myroTurn(double angle, LinearOpMode linearOpMode){
 

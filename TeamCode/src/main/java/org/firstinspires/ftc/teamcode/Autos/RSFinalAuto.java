@@ -98,7 +98,7 @@ public class RSFinalAuto extends LinearOpMode{
 
             vuMarkName = vuMark.name();
 
-            robot.speedMyroTurn(-90, 0.1, this);
+            robot.encoderTurn(-90, 0.2125, this);
             robot.myWait(2000);
 
             switch (vuMarkName){

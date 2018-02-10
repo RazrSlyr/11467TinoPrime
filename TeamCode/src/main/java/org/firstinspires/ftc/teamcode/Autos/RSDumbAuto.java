@@ -18,7 +18,7 @@ public class RSDumbAuto extends LinearOpMode {
         robot.setHardwareMap(hardwareMap);
         waitForStart();
         robot.moveDistance(36, 0.5, this);
-        robot.myroTurn(-90, this);
+        robot.encoderTurn(-90, 0.4, this);
         robot.moveDistance(12, 0.5, this);
     }
 }

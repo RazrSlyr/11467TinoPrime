@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.hardware.HardwareDevice;
  * Created by Gargi on 11/9/2017.
  */
 
-@Autonomous (name = "TurnTest", group = "")
-public class TurnTest extends LinearOpMode {
+@Autonomous (name = "TurnTestFast", group = "")
+public class TurnTestFast extends LinearOpMode {
     Robot robot = new Robot();
 
     @Override
@@ -26,9 +26,9 @@ public class TurnTest extends LinearOpMode {
         robot.calibrateGyro();
         while (opModeIsActive());*/
 
-        robot.encoderTurn(90, 0.35, this);
+        robot.encoderTurn(-90, 0.4, this);
         robot.myWait(1000);
-        robot.encoderTurn(-90, 0.35, this);
+        robot.encoderTurn(-90, 0.4, this);
         while(opModeIsActive());
 
 

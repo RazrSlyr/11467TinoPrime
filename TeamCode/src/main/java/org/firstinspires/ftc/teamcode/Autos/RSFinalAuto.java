@@ -91,14 +91,14 @@ public class RSFinalAuto extends LinearOpMode{
 
         if(opModeIsActive()){
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-
+            robot.encoderTurn(-30, 0.2125, this);
             while (vuMark.equals(RelicRecoveryVuMark.UNKNOWN) && opModeIsActive()){
                 vuMark = RelicRecoveryVuMark.from(relicTemplate);
             }
-
+            robot.encoderTurn(30, 0.2125, this);
             vuMarkName = vuMark.name();
 
-            robot.encoderTurn(-90, 0.2125, this);
+            robot.encoderTurn(90, 0.2125, this);
             robot.myWait(2000);
 
             switch (vuMarkName){
@@ -122,7 +122,7 @@ public class RSFinalAuto extends LinearOpMode{
             }
             robot.myWait(2000);
 
-            robot.myroTurn(-90, this);
+            robot.myroTurn(90, this);
             robot.moveDistance(24 - Robot.LENGTH/2 - 6, 0.5, this);
 
             robot.openClaw2(this);

@@ -35,7 +35,7 @@ public class Robot {
     static final double     P_TURN_COEFF            = 0.1;      // Larger is more responsive, but also less stable
     static final double     P_DRIVE_COEFF           = 0.15;     // Larger is more responsive, but also less stable
 
-    public static double NINETY_DEG = 16.959 * 90/135 * 90/80;
+    public static double NINETY_DEG = 16.959 * 90/135 * 90/80 * 90/100;
 
     private double percentOpen = 0;
     private long last_iter;
@@ -109,7 +109,7 @@ public class Robot {
 
         int distance = (int) ((newAng / CIRCUMFERENCE) * TICKS_PER_ROTATION);
         if(angle < 0) {
-            leftMotor.setTargetPosition(-distance / 2 * 80/90 * 90/88);
+            leftMotor.setTargetPosition(-distance / 2 * 80/90 * 90/88 * 90/100);
             rightMotor.setTargetPosition(distance);
         } else {
             leftMotor.setTargetPosition(distance);

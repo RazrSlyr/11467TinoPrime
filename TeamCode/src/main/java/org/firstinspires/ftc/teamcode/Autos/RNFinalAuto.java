@@ -74,14 +74,14 @@ public class RNFinalAuto extends LinearOpMode{
 
         if(opModeIsActive()){
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-
+            robot.encoderTurn(-30, 0.2125, this);
             while (vuMark.equals(RelicRecoveryVuMark.UNKNOWN) && opModeIsActive()){
                 vuMark = RelicRecoveryVuMark.from(relicTemplate);
             }
-
+            robot.encoderTurn(30, 0.2125, this);
             vuMarkName = vuMark.name();
 
-            robot.encoderTurn(-90, 0.2125, this);
+            robot.encoderTurn(90, 0.2125, this);
             robot.myWait(1000);
             telemetry.addData("Step", "1");
             telemetry.update();
@@ -91,7 +91,7 @@ public class RNFinalAuto extends LinearOpMode{
             telemetry.addData("Step", "1");
             telemetry.update();
 
-            robot.encoderTurn(90, 0.4, this);
+            robot.encoderTurn(-90, 0.4, this);
             robot.myWait(1000);
             telemetry.addData("Step", "2");
             telemetry.update();
@@ -119,7 +119,7 @@ public class RNFinalAuto extends LinearOpMode{
             telemetry.addData("Step", "3");
             telemetry.update();
 
-            robot.encoderTurn(-90, 0.4, this);
+            robot.encoderTurn(90, 0.4, this);
             robot.myWait(1000);
             telemetry.addData("Step", "4");
             telemetry.update();

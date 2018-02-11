@@ -26,9 +26,9 @@ public class TurnTest extends LinearOpMode {
         robot.calibrateGyro();
         while (opModeIsActive());*/
 
-        robot.encoderTurn(90, 0.35, this);
-        robot.myWait(1000);
-        robot.encoderTurn(-90, 0.35, this);
+   /*     robot.encoderTurn(90, 0.35, this);
+        robot.myWait(1000);*/
+        robot.encoderTurn(-30, 0.2125, this);
         while(opModeIsActive());
 
 

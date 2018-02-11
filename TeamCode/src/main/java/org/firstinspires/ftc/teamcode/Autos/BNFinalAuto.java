@@ -91,18 +91,18 @@ public class BNFinalAuto extends LinearOpMode {
 
         if(opModeIsActive()){
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-
+            robot.encoderTurn(-30, 0.2125, this);
             while (vuMark.equals(RelicRecoveryVuMark.UNKNOWN) && opModeIsActive()){
                 vuMark = RelicRecoveryVuMark.from(relicTemplate);
             }
-
+            robot.encoderTurn(30, 0.2125, this);
             vuMarkName = vuMark.name();
 
-            robot.encoderTurn(90, 0.2125, this);
+            robot.encoderTurn(-90, 0.2125, this);
 
             robot.moveDistance(24, 0.5, this);
 
-            robot.encoderTurn(-90, 0.4, this);
+            robot.encoderTurn(90, 0.4, this);
 
             switch (vuMarkName){
                 case "CENTER":
@@ -123,7 +123,7 @@ public class BNFinalAuto extends LinearOpMode {
                     break;
             }
 
-            robot.encoderTurn(90, 0.4, this);
+            robot.encoderTurn(-90, 0.4, this);
 
             robot.moveDistance(24 - Robot.LENGTH/2 - 6, 0.5, this);
 

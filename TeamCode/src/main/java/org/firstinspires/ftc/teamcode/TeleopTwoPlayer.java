@@ -1,19 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Path;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 
 /**
  * Created by guydu on 12/1/2017.
  */
 
-@TeleOp(name = "Main Tele", group = " ")
-public class Teleop extends OpMode{
+@TeleOp(name = "Main Tele 2 People", group = " ")
+public class TeleopTwoPlayer extends OpMode{
 
     final double CIRCUMFERENCE = 0.721 * Math.PI;
     final double TICKS_PER_ROTATION = 500 * 5/2.5 * 5/4.5 * 9/8; //Pretend it's 5 inches, scale later.
@@ -52,21 +48,21 @@ public class Teleop extends OpMode{
 
        //robot.slide.setPower(gamepad1.right_stick_y);
 
-        if(gamepad1.left_trigger > 0){
+        if(gamepad2.left_trigger > 0){
             //robot.iterateOpening();
             robot.claw.setPower(1);
-        }else if(gamepad1.right_trigger > 0){
+        }else if(gamepad2.right_trigger > 0){
             //robot.iterateClosing();
             robot.claw.setPower(-1);
         } else {
             robot.claw.setPower(0);
         }
 
-        if (gamepad1.right_bumper && !(rBumpPressed || lBumpPressed) && !up) {
+        if (gamepad2.right_bumper && !(rBumpPressed || lBumpPressed) && !up) {
             startMoveUp();
         }
 
-        if (gamepad1.left_bumper && !(rBumpPressed || lBumpPressed) && up) {
+        if (gamepad2.left_bumper && !(rBumpPressed || lBumpPressed) && up) {
             startMoveDown();
         }
 
